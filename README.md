@@ -8,7 +8,7 @@ Quickly publish a set of unstructured JSON objects into a Google spreadsheet tha
 ## Example usage
 
 ```
-const OTJS = require('./index');
+const OTJS = require('object-to-google-spreadsheet');
 
 // require your Google json credentials file
 const creds = require('./creds');
