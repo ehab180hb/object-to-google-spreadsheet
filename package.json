@@ -1,0 +1,26 @@
+{
+  "name": "object-to-google-spreadsheet",
+  "version": "1.0.0",
+  "description": "Push an array of unstructured data objects into a Google spreadsheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehab180hb/object-to-google-spreadsheet.git"
+  },
+  "keywords": [
+    "google",
+    "spreadsheets"
+  ],
+  "author": "Ehab Khaireldin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ehab180hb/object-to-google-spreadsheet/issues"
+  },
+  "homepage": "https://github.com/ehab180hb/object-to-google-spreadsheet#readme",
+  "dependencies": {
+    "array-to-google-sheets": "^1.0.0"
+  }
+}
