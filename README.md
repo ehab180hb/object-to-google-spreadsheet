@@ -1,4 +1,4 @@
-Quickly publish a set of unstructured JSON objects into a Google spreadsheet that you specifiy.
+Quickly publish a set of unstructured JSON objects into a Google spreadsheet that you specify.
 
 # Installation
 
@@ -8,12 +8,12 @@ Quickly publish a set of unstructured JSON objects into a Google spreadsheet tha
 ## Example usage
 
 ```
-const OTJS = require('object-to-google-spreadsheet');
+const O2GS = require('object-to-google-spreadsheet');
 
 // require your Google json credentials file
 const creds = require('./creds');
 
-const myReport = new OTJS(creds, '<your spreadsheet ID here>');
+const myReport = new O2GS(creds, '<Your docKey here>');
 
 const options = {
     repName: 'My Awesome Report', // sheet name
@@ -25,27 +25,27 @@ const options = {
 
 const docs = [
     {
-        "Person" : "John",
-        "Properties" : [
-            {
-                "Age" : "25",
-                "Address" : "16 main st."
-            }
-        ]
+        Person : "John",
+        Properties : {
+            Age: 25,
+            Address : "16 main st."
+        }
+
     },
     {
-        "Person" : "Jane",
-        "Properties" : [
-            {
-                "Age" : "26",
-                "Hobbies" : "swimming"
-            }
-        ]
+        Person : "Jane",
+        Properties : {
+            Age : 24,
+            Hobbies : "swimming"
+        }
+
     }
 ]
 
 // push your object to the sheet
 myReport.push(docs, options)
+.then(result => console.log(result))
+.catch(err => console.log(err))
 
 ```
 
