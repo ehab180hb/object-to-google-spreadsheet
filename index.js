@@ -49,7 +49,7 @@ module.exports = class {
             // push to the API
             const a2gs = new ArrayToGoogleSheets(this.docKey, this.creds);
             const a2gsOpts = {margin: 2, minRow: 10, minCol: 10, resize: true, clear: false};
-            a2gs.updateGoogleSheets(repName, repData, a2gsOpts)
+            a2gs.updateGoogleSheets(sheetName, repData, a2gsOpts)
             .then(result => {
                 resolve()
             })
