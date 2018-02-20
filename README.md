@@ -16,25 +16,25 @@ const creds = require('./creds');
 const myReport = new O2GS(creds, '<Your docKey here>');
 
 const options = {
-    repName: 'My Awesome Report', // sheet name
-    rowName: 'Person', // the key name of the base of your rows
-    properties: 'Properties', // the name of the array of objects containing your base's properties
+    sheetName: 'My Awesome Report', // sheet name
+    rowName: 'person', // the key name of the base of your rows
+    properties: 'properties', // the name of the array of objects containing your base's properties
     a1Field: 'details', // the value of the A1 field
     sort: true // sort fields
 }
 
 const docs = [
     {
-        Person : "John",
-        Properties : {
+        person : "John",
+        properties : {
             Age: 25,
             Address : "16 main st."
         }
 
     },
     {
-        Person : "Jane",
-        Properties : {
+        person : "Jane",
+        properties : {
             Age : 24,
             Hobbies : "swimming"
         }

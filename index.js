@@ -3,7 +3,7 @@ const ArrayToGoogleSheets = require('array-to-google-sheets');
 const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
 
     // instantiating the set of the fields names
-    let firstRowSet = new Set([]);
+    let firstRowSet = new Set();
 
     // extracting the field names from the object
     [obj.forEach(x => Object.keys(x[prop]).forEach(y => firstRowSet.add(y)))];
@@ -33,13 +33,29 @@ module.exports = class {
         const creds = this.creds
         const docKey = this.docKey
         return new Promise((resolve, reject) => {
-            const {repName, rowName, properties, a1Field, sort} = options;
-            const repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
+
+            // a function that cleans input out of invalid string charchters
+            const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp
+
+            const {repName, rowName, properties, a1Field, sort, removeBase} = options;
+            let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
+
+            // clean the data
+            repData = repData.map(x => x.map(y => c(y)));
+
+            // remove the base column if removeBase is set to true
+            repData = removeBase ? repData.map(x => x.slice(1)) : repData;
+
+            // push to the API
             const a2gs = new ArrayToGoogleSheets(this.docKey, this.creds);
-            const a2gsOpts = {margin: 2, minRow: 10, minCol: 10, resize: true, clear: false}
+            const a2gsOpts = {margin: 2, minRow: 10, minCol: 10, resize: true, clear: false};
             a2gs.updateGoogleSheets(repName, repData, a2gsOpts)
-            .then(result => resolve(result))
-            .catch(err => reject(err))
+            .then(result => {
+                resolve()
+            })
+            .catch(err => {
+                reject(err)
+            })
         }
     )}
 }
