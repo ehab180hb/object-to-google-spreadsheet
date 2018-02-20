@@ -37,7 +37,7 @@ module.exports = class {
             // a function that cleans input out of invalid string charchters
             const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp
 
-            const {repName, rowName, properties, a1Field, sort, removeBase} = options;
+            const {sheetName, rowName, properties, a1Field, sort, removeBase} = options;
             let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
 
             // clean the data
