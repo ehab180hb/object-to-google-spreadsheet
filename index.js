@@ -40,9 +40,13 @@ module.exports = class {
             // a function that cleans input out of invalid string charchters
             const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp
 
-            const {sheetName, rowName, properties, a1Field, sort, removeBase} = options;
-            let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
+            const {sheetName, a1Field, sort, removeBase} = options;
 
+            // if rowName or properties were not provided get them automatically
+            const rowName = options.rowName ? options.rowName : Object.keys(docs[0])[0];
+            const properties = options.properties ? options.properties : Object.keys(docs[0])[1];
+
+            let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
             // clean the data
             repData = repData.map(x => x.map(y => c(y)));
 
