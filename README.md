@@ -52,12 +52,12 @@ myReport.push(docs, options)
 
 ## Example result
 
-![updated sheet](https://i.imgur.com/CiWu1SX.png)
+![updated sheet](https://i.imgur.com/pCi5BH9.png)
 
 
 # docKey
 
-- Every Google Sheets has a unique key in the URL
+- Every Google Sheet has a unique key in the URL
 - https://docs.google.com/spreadsheets/d/{docKey}/
 
 # Creds
