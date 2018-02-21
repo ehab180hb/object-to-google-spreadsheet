@@ -5,8 +5,11 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     // instantiating the set of the fields names
     let firstRowSet = new Set();
 
+    // a function the checks if input is array, stringifies accordingly
+    const b = inp => inp instanceof Array ? inp.join(", ") : inp
+
     // extracting the field names from the object
-    [obj.forEach(x => Object.keys(x[prop]).forEach(y => firstRowSet.add(y)))];
+    obj.forEach(x => Object.keys(x[prop]).forEach(y => firstRowSet.add(y)));
 
     // converting the field names set into an array
     const a = Array.from(firstRowSet);
@@ -18,7 +21,7 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     head.unshift(a1);
 
     // mapping the values into their corresponding rows
-    const fillData = obj.map(x => head.map(y => y == a1 ? x[rowName] : x[prop][y] ? x[prop][y] : false));
+    const fillData = obj.map(x => head.map(y => y == a1 ? x[rowName] : x[prop][y] ? b(x[prop][y]) : false));
 
 
     return [head, ...fillData];
