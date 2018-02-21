@@ -19,9 +19,9 @@ const options = {
     sheetName: 'My Awesome Report',
     rowName: 'person', // (optional) the key name of the base of your rows
     properties: 'properties', // (optional) the array of objects containing your base's properties
-    a1Field: 'details', // the value of the A1 field
-    sort: true, // sort fields
-    removeBase: false // if true, the base column won't be rendered in the sheet
+    a1Field: 'details', //  (optional) the value of the A1 field
+    sort: true, //  (optional) sort fields
+    removeBase: false //  (optional) if true, the base column won't be rendered in the sheet
 }
 
 const docs = [

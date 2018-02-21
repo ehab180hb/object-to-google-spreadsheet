@@ -40,11 +40,12 @@ module.exports = class {
             // a function that cleans input out of invalid string charchters
             const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp
 
-            const {sheetName, a1Field, sort, removeBase} = options;
+            const {sheetName, sort, removeBase} = options;
 
-            // if rowName or properties were not provided get them automatically
+            // if rowName, properties or a1 field were not provided get them automatically
             const rowName = options.rowName ? options.rowName : Object.keys(docs[0])[0];
             const properties = options.properties ? options.properties : Object.keys(docs[0])[1];
+            const a1Field = options.a1Field ? options.a1Field : " ";
 
             let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
             // clean the data
@@ -58,7 +59,9 @@ module.exports = class {
             const a2gsOpts = {margin: 2, minRow: 10, minCol: 10, resize: true, clear: false};
             a2gs.updateGoogleSheets(sheetName, repData, a2gsOpts)
             .then(result => {
-                resolve()
+                resolve({
+                    status: "Pushed to the spreadsheet"
+                })
             })
             .catch(err => {
                 reject(err)
