@@ -6,7 +6,7 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     let firstRowSet = new Set();
 
     // a function the checks if input is array, stringifies accordingly
-    const b = inp => inp instanceof Array ? inp.join(", ") : inp
+    const b = inp => inp instanceof Array ? inp.join(", ") : inp;
 
     // extracting the field names from the object
     obj.forEach(x => Object.keys(x[prop]).forEach(y => firstRowSet.add(y)));
@@ -25,7 +25,7 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
 
 
     return [head, ...fillData];
-}
+};
 
 module.exports = class {
     constructor(creds, docKey) {
@@ -33,12 +33,12 @@ module.exports = class {
         this.docKey = docKey;
     }
     push(docs, options) {
-        const creds = this.creds
-        const docKey = this.docKey
+        const creds = this.creds;
+        const docKey = this.docKey;
         return new Promise((resolve, reject) => {
 
             // a function that cleans input out of invalid string charchters
-            const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp
+            const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
 
             const {sheetName, sort, removeBase} = options;
 
@@ -61,11 +61,11 @@ module.exports = class {
             .then(result => {
                 resolve({
                     status: "Pushed to the spreadsheet"
-                })
+                });
             })
             .catch(err => {
-                reject(err)
-            })
+                reject(err);
+            });
         }
-    )}
-}
+    );}
+};
