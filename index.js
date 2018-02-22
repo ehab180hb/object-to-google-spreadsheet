@@ -37,10 +37,14 @@ module.exports = class {
         const docKey = this.docKey;
         return new Promise((resolve, reject) => {
 
+            if (!(docs instanceof Array)) reject("Wrong object schema provided, input must be an array of objects");
+
             // a function that cleans input out of invalid string charchters
             const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
 
             const {sheetName, sort, removeBase} = options;
+
+            if (!sheetName) reject("sheetName was not provided")
 
             // if rowName, properties or a1 field were not provided get them automatically
             const rowName = options.rowName ? options.rowName : Object.keys(docs[0])[0];
@@ -48,6 +52,7 @@ module.exports = class {
             const a1Field = options.a1Field ? options.a1Field : " ";
 
             let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
+
             // clean the data
             repData = repData.map(x => x.map(y => c(y)));
 
