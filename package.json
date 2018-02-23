@@ -1,6 +1,6 @@
 {
   "name": "object-to-google-spreadsheet",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Push an array of unstructured data objects into a Google spreadsheet",
   "main": "index.js",
   "scripts": {

@@ -5,9 +5,6 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     // instantiating the set of the fields names
     let firstRowSet = new Set();
 
-    // a function the checks if input is array, stringifies accordingly
-    const b = inp => inp instanceof Array ? inp.join(", ") : inp;
-
     // extracting the field names from the object
     obj.forEach(x => Object.keys(x[prop]).forEach(y => firstRowSet.add(y)));
 
@@ -27,6 +24,17 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     return [head, ...fillData];
 };
 
+// check if input is array, stringifies accordingly
+const b = inp => inp instanceof Array ? inp.join(", ") : inp;
+
+// catch and throw error
+const er = (cond, msg) => {
+    if (cond) throw new Error(msg);
+};
+
+// clean input out of invalid string charchters
+const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
+
 module.exports = class {
     constructor(creds, docKey) {
         this.creds = creds;
@@ -37,14 +45,11 @@ module.exports = class {
         const docKey = this.docKey;
         return new Promise((resolve, reject) => {
 
-            if (!(docs instanceof Array)) reject("Wrong object schema provided, input must be an array of objects");
-
-            // a function that cleans input out of invalid string charchters
-            const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
+            er(!(docs instanceof Array), "Wrong object schema provided, input must be an array of objects");
 
             const {sheetName, sort, removeBase} = options;
 
-            if (!sheetName) reject("sheetName was not provided")
+            er(!sheetName, "sheetName was not provided")
 
             // if rowName, properties or a1 field were not provided get them automatically
             const rowName = options.rowName ? options.rowName : Object.keys(docs[0])[0];
