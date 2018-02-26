@@ -14,7 +14,7 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     // sorting it if the sort option was set to true
     let head = sort ? a.sort() : a;
 
-    // // assinging the value of the A1 field
+    // assinging the value of the A1 field
     head.unshift(a1);
 
     // mapping the values into their corresponding rows
@@ -49,12 +49,12 @@ module.exports = class {
 
             const {sheetName, sort, removeBase} = options;
 
-            er(!sheetName, "sheetName was not provided")
+            er(!sheetName, "sheetName was not provided");
 
             // if rowName, properties or a1 field were not provided get them automatically
-            const rowName = options.rowName ? options.rowName : Object.keys(docs[0])[0];
-            const properties = options.properties ? options.properties : Object.keys(docs[0])[1];
-            const a1Field = options.a1Field ? options.a1Field : " ";
+            const rowName = options.rowName || Object.keys(docs[0])[0];
+            const properties = options.properties || Object.keys(docs[0])[1];
+            const a1Field = options.a1Field || " ";
 
             let repData = jsonToGssFormat(docs, rowName, properties, a1Field, sort);
 

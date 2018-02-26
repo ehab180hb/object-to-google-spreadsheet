@@ -18,12 +18,13 @@ const myReport = new O2GS(creds, '<Your docKey here>');
 const options = {
     sheetName: 'My Awesome Report',
     rowName: 'person', // (optional) the key name of the base of your rows
-    properties: 'properties', // (optional) the array of objects containing your base's properties
-    a1Field: 'details', //  (optional) the value of the A1 field
-    sort: true, //  (optional) sort fields
-    removeBase: false //  (optional) if true, the base column won't be rendered in the sheet
-}
+    properties: 'properties', // (optional) the field containing your base's properties
+    a1Field: 'details', // (optional) the value of the A1 field
+    sort: true, // (optional) sort fields row alphabetically
+    removeBase: false // (optional) if true, the base column won't be rendered in the sheet
+};
 
+// input must be an array of your objects
 const docs = [
     {
         person : "John",
@@ -41,13 +42,21 @@ const docs = [
         }
 
     }
-]
+];
 
 // push your object to the sheet
 myReport.push(docs, options)
 .then(result => console.log(result))
-.catch(err => console.log(err))
+.catch(err => console.log(err));
 
+// using async/await
+(async ()=> {
+    try {
+        await myReport.push(docs, options);
+    } catch(err) {
+        console.log(err);
+    }
+    })();
 ```
 
 ## Example result
