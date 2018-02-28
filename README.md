@@ -56,7 +56,7 @@ myReport.push(docs, options)
     } catch(err) {
         console.log(err);
     }
-    })();
+})();
 ```
 
 ## Example result
