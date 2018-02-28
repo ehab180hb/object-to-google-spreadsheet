@@ -1,6 +1,6 @@
 const ArrayToGoogleSheets = require('array-to-google-sheets');
 
-const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
+function jsonToGssFormat(obj, rowName, prop, a1, sort) {
 
     // instantiating the set of the fields names
     let firstRowSet = new Set();
@@ -24,16 +24,21 @@ const jsonToGssFormat = (obj, rowName, prop, a1, sort) => {
     return [head, ...fillData];
 };
 
-// check if input is array, stringifies accordingly
-const b = inp => inp instanceof Array ? inp.join(", ") : inp;
+// check if input is array, stringify accordingly
+function b(inp) {
+    return inp instanceof Array ? inp.join(", ") : inp;
+}
 
 // catch and throw error
-const er = (cond, msg) => {
+function er(cond, msg) {
     if (cond) throw new Error(msg);
 };
 
+
 // clean input out of invalid string charchters
-const c = inp => typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
+function c(inp) {
+    return typeof inp == 'string' ? inp.replace(/[\u0000-\u001f]/g,'') : inp;
+}
 
 module.exports = class {
     constructor(creds, docKey) {
