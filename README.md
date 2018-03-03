@@ -4,6 +4,8 @@ Quickly publish a set of unstructured JSON objects into a Google spreadsheet tha
 
 [![NPM Info](https://nodei.co/npm/object-to-google-spreadsheet.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.org/package/object-to-google-spreadsheet)
 
+[![Build Status](https://travis-ci.org/ehab180hb/object-to-google-spreadsheet.svg?branch=master)](https://travis-ci.org/ehab180hb/object-to-google-spreadsheet)
+
 
 ## Example usage
 
