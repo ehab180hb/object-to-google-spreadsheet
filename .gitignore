@@ -1,4 +1,5 @@
 node_modules/
 creds.json
 demoAndTest.js
-/coverage
+coverage
+.nyc_output
