@@ -1,12 +1,12 @@
 {
     "name": "object-to-google-spreadsheet",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description": "Push an array of unstructured data objects into a Google spreadsheet",
     "main": "index.js",
     "scripts": {
-		"test": "mocha",
-		"pretest": "eslint --ignore-path .gitignore .",
-        "coverage": "nyc mocha"
+        "test": "mocha",
+        "pretest": "eslint --ignore-path .gitignore .",
+        "coverage": "nyc --reporter=lcov mocha"
     },
     "repository": {
         "type": "git",

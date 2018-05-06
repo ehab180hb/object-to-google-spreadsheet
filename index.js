@@ -96,10 +96,7 @@ module.exports = class {
 					options,
 					auth: this.auth
 				}, inputSchema);
-				if (validation.error) {
-					reject(validation.error);
-					return;
-				}
+				if (validation.error) throw new Error(validation.error);
 				const {
 					sheetName = 'New Sheet',
 					rowName = Object.keys(docs[0])[0],

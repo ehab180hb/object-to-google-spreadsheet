@@ -17,7 +17,7 @@ describe('main module', ()=> {
 
 		},
 		{
-			person : 'Jane',
+			person : 'Jane\u0000\u0000',
 			properties : {
 				Age : 26,
 				Hobbies : ['swimming', 'Javascripting']
@@ -29,7 +29,7 @@ describe('main module', ()=> {
 	this.badInputObjects = [
 		'some string',
 		{
-			person : 'Jane \u0000 \u0000',
+			person : 'Jane',
 			properties : {
 				Age : 26,
 				Hobbies : ['swimming', 'Javascripting']
@@ -42,9 +42,7 @@ describe('main module', ()=> {
 		sheetName: 'My Awesome Report',
 		rowName: 'person',
 		properties: 'properties',
-		a1Field: 'info',
-		sort: true,
-		removeBase: false
+		a1Field: 'info'
 	};
 
 	const fakePush = (auth, data) => {
@@ -58,7 +56,17 @@ describe('main module', ()=> {
 
 	before(async ()=> {
 		const myModule = new ObjectToGoogleSheet(fakeCreds, fakeDocKey);
-		this.goodResult = await myModule.push(goodInputObjects, options);
+		[
+			this.goodResult,
+			this.goodResultNoOpts,
+			this.goodResultWithSort
+		] = await Promise.all(
+			[
+				myModule.push(goodInputObjects, options),
+				myModule.push(goodInputObjects),
+				myModule.push(goodInputObjects, { sort: true, removeBase: true })
+			]
+		);
 		this.myModule = myModule;
 	});
 	
@@ -82,6 +90,16 @@ describe('main module', ()=> {
 			.that.equals('Hobbies');
 	});
 
+	it('should sort and remove base', ()=> {
+		expect(this.goodResultWithSort).to.have.property('data')
+			.which.has.property('values')
+			.that.is.an.instanceOf(Array)
+			.with.lengthOf(3)
+			.that.has.property([0])
+			.which.has.property([2])
+			.that.equals('Hobbies');
+	});
+
 	it('should properly map the body', ()=> {
 		expect(this.goodResult).to.have.property('data')
 			.which.has.property('values')
@@ -89,7 +107,17 @@ describe('main module', ()=> {
 			.with.lengthOf(3)
 			.that.has.property([1])
 			.which.has.property([1])
-			.that.equals('16 main st.');
+			.that.equals(25);
+	});
+
+	it('should figure out missing options', ()=> {
+		expect(this.goodResultNoOpts).to.have.property('data')
+			.which.has.property('values')
+			.that.is.an.instanceOf(Array)
+			.with.lengthOf(3)
+			.that.has.property([1])
+			.which.has.property([1])
+			.that.equals(25);
 	});
 
 	it('should properly map array properties', ()=> {
