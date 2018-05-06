@@ -67,8 +67,8 @@ function pushToSheet(auth, data) {
 module.exports = class {
 	/**
 	 * Instantiate an instance of the module
-	 * @param {*} creds - your Google's service account credintials.
-	 * @param {*} docKey - the ID of your spreadsheet.
+	 * @param {object} creds - your Google's service account credintials.
+	 * @param {string} docKey - the ID of your spreadsheet.
 	 */
 	constructor(creds, docKey) {
 		this.auth = {
@@ -78,8 +78,8 @@ module.exports = class {
 	}
 	/**
 	 * Push your data to the sheet
-	 * @param {*} docs - the array of your objects
-	 * @param {*} options 
+	 * @param {array} docs - the array of your objects
+	 * @param {object} options 
 	 * @param {string} options.sheetName - the name of your sheet.
 	 * @param {string} options.rowName - the key name of the field that will be used as an ID.
 	 * @param {string} options.properties - the key name of the field containing the properties.
