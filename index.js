@@ -21,7 +21,7 @@ function jsonToGssFormat({ docs, rowName, properties, a1Field, sort }) {
 	const firstRowSet = new Set();
 	docs.forEach(inpObject => Object.keys(inpObject[properties])
 		.forEach(keyName => firstRowSet.add(keyName)));
-		
+
 	let header = Array.from(firstRowSet);
 	header = sort ? header.sort() : header;
 	header.unshift(a1Field);
@@ -51,14 +51,9 @@ function pushToSheet(auth, data) {
 			const a2gs = new ArrayToGoogleSheets(auth.docKey, auth.creds);
 			const options = { margin: 2, minRow: 10, minCol: 10, resize: true, clear: false };
 			await a2gs.updateGoogleSheets(data.sheetName, data.values, options);
-			resolve({
-				ok: 1,
-				rowCount: data.values.length
-			});
+			resolve({ ok: 1, rowCount: data.values.length });
 		} catch (error) {
-			reject({
-				error
-			});
+			reject({ error });
 		}
 	});
 }
@@ -71,10 +66,7 @@ module.exports = class {
 	 * @param {string} docKey - the ID of your spreadsheet.
 	 */
 	constructor(creds, docKey) {
-		this.auth = {
-			creds,
-			docKey
-		};
+		this.auth = { creds, docKey };
 	}
 	/**
 	 * Push your data to the sheet
@@ -84,18 +76,15 @@ module.exports = class {
 	 * @param {string} options.rowName - the key name of the field that will be used as an ID.
 	 * @param {string} options.properties - the key name of the field containing the properties.
 	 * @param {string} options.a1Field - the A1 spreadsheet cell.
-	 * @param {boolean} options.removeBase - Whether or not to remove the set of IDs used to map the objects.
+	 * @param {boolean} options.removeBase - remove the set of IDs used to map the objects.
+	 * @param {boolean} options.sort - sort chronologically.
 	 * @returns {object} - confirmation of completion.
 	 */
 	push(docs, options = {}) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const { auth } = this;
-				const validation = Joi.validate({
-					docs,
-					options,
-					auth: this.auth
-				}, inputSchema);
+				const validation = Joi.validate({ docs, options, auth }, inputSchema);
 				if (validation.error) throw new Error(validation.error);
 				const {
 					sheetName = 'New Sheet',
@@ -105,14 +94,11 @@ module.exports = class {
 					sort,
 					removeBase
 				} = options;
-				
 				let values = jsonToGssFormat({ docs, rowName, properties, a1Field, sort });
 				values = values.map(x => x.map(y => cleanChars(y)));
 				values = removeBase ? values.map(x => x.slice(1)) : values;
-
-				const result = await pushToSheet(auth, {values, sheetName});
+				const result = await pushToSheet(auth, { values, sheetName });
 				resolve(result);
-
 			} catch (error) {
 				reject(error);
 			}

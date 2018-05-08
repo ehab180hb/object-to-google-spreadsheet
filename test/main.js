@@ -2,25 +2,24 @@ const { expect } = require('chai');
 const rewire = require('rewire');
 const ObjectToGoogleSheet = rewire('../index');
 
-describe('main module', ()=> {
+describe('main module', () => {
 
 	const fakeCreds = {};
 	const fakeDocKey = '1gsLxL0ln8m2yJQgnLNpzvP8kGDLU1ATszwZlM';
 
 	const goodInputObjects = [
 		{
-			person : 'John',
-			properties : {
+			person: 'John',
+			properties: {
 				Age: 25,
-				Address : '16 main st.'
+				Address: '16 main st.'
 			}
-
 		},
 		{
-			person : 'Jane\u0000\u0000',
-			properties : {
-				Age : 26,
-				Hobbies : ['swimming', 'Javascripting']
+			person: 'Jane\u0000\u0000',
+			properties: {
+				Age: 26,
+				Hobbies: ['swimming', 'Javascripting']
 			}
 
 		}
@@ -29,15 +28,15 @@ describe('main module', ()=> {
 	this.badInputObjects = [
 		'some string',
 		{
-			person : 'Jane',
-			properties : {
-				Age : 26,
-				Hobbies : ['swimming', 'Javascripting']
+			person: 'Jane',
+			properties: {
+				Age: 26,
+				Hobbies: ['swimming', 'Javascripting']
 			}
 
 		}
 	];
-	
+
 	const options = {
 		sheetName: 'My Awesome Report',
 		rowName: 'person',
@@ -54,7 +53,7 @@ describe('main module', ()=> {
 
 	ObjectToGoogleSheet.__set__('pushToSheet', fakePush);
 
-	before(async ()=> {
+	before(async () => {
 		const myModule = new ObjectToGoogleSheet(fakeCreds, fakeDocKey);
 		[
 			this.goodResult,
@@ -69,18 +68,18 @@ describe('main module', ()=> {
 		);
 		this.myModule = myModule;
 	});
-	
-	
-	
+
+
+
 	it('should process valid auth inputs', async () => {
 		expect(this.goodResult).to.have.property('auth')
 			.which.has.property('creds', fakeCreds);
-		
+
 		expect(this.goodResult).to.have.property('auth')
 			.which.has.property('docKey', fakeDocKey);
 	});
-	
-	it('should properly map the head', ()=> {
+
+	it('should properly map the head', () => {
 		expect(this.goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -90,7 +89,7 @@ describe('main module', ()=> {
 			.that.equals('Hobbies');
 	});
 
-	it('should sort and remove base', ()=> {
+	it('should sort and remove base', () => {
 		expect(this.goodResultWithSort).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -100,7 +99,7 @@ describe('main module', ()=> {
 			.that.equals('Hobbies');
 	});
 
-	it('should properly map the body', ()=> {
+	it('should properly map the body', () => {
 		expect(this.goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -110,7 +109,7 @@ describe('main module', ()=> {
 			.that.equals(25);
 	});
 
-	it('should figure out missing options', ()=> {
+	it('should figure out missing options', () => {
 		expect(this.goodResultNoOpts).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -120,7 +119,7 @@ describe('main module', ()=> {
 			.that.equals(25);
 	});
 
-	it('should properly map array properties', ()=> {
+	it('should properly map array properties', () => {
 		expect(this.goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -130,7 +129,7 @@ describe('main module', ()=> {
 			.that.equals('swimming, Javascripting');
 	});
 
-	it('should clean input out of invalid charcters', ()=> {
+	it('should clean input out of invalid charcters', () => {
 		expect(this.goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
@@ -140,13 +139,13 @@ describe('main module', ()=> {
 			.that.has.lengthOf(4);
 	});
 
-	it('should not process invalid input', ()=> {
+	it('should not process invalid input', () => {
 		return this.myModule.push(this.badInputObjects, options)
 			.catch((error) => {
 				expect(error).to.be.instanceof(Error)
 					.and.to.match(/must be an object/);
 			});
-		
+
 	});
 
 });
