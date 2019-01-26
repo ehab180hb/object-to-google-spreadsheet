@@ -2,6 +2,12 @@ const { expect } = require('chai');
 const rewire = require('rewire');
 const ObjectToGoogleSheet = rewire('../index');
 
+let goodResult;
+let goodResultNoOpts;
+let goodResultWithSort;
+let myModule;
+let badInputObjects;
+
 describe('main module', () => {
 
 	const fakeCreds = {};
@@ -25,7 +31,7 @@ describe('main module', () => {
 		}
 	];
 
-	this.badInputObjects = [
+	badInputObjects = [
 		'some string',
 		{
 			person: 'Jane',
@@ -54,11 +60,11 @@ describe('main module', () => {
 	ObjectToGoogleSheet.__set__('pushToSheet', fakePush);
 
 	before(async () => {
-		const myModule = new ObjectToGoogleSheet(fakeCreds, fakeDocKey);
+		myModule = new ObjectToGoogleSheet(fakeCreds, fakeDocKey);
 		[
-			this.goodResult,
-			this.goodResultNoOpts,
-			this.goodResultWithSort
+			goodResult,
+			goodResultNoOpts,
+			goodResultWithSort
 		] = await Promise.all(
 			[
 				myModule.push(goodInputObjects, options),
@@ -66,81 +72,80 @@ describe('main module', () => {
 				myModule.push(goodInputObjects, { sort: true, removeBase: true })
 			]
 		);
-		this.myModule = myModule;
 	});
 
 
 
 	it('should process valid auth inputs', async () => {
-		expect(this.goodResult).to.have.property('auth')
+		expect(goodResult).to.have.property('auth')
 			.which.has.property('creds', fakeCreds);
 
-		expect(this.goodResult).to.have.property('auth')
+		expect(goodResult).to.have.property('auth')
 			.which.has.property('docKey', fakeDocKey);
 	});
 
 	it('should properly map the head', () => {
-		expect(this.goodResult).to.have.property('data')
+		expect(goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([0])
-			.which.has.property([3])
+			.that.has.property('0')
+			.which.has.property('3')
 			.that.equals('Hobbies');
 	});
 
 	it('should sort and remove base', () => {
-		expect(this.goodResultWithSort).to.have.property('data')
+		expect(goodResultWithSort).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([0])
-			.which.has.property([2])
+			.that.has.property('0')
+			.which.has.property('2')
 			.that.equals('Hobbies');
 	});
 
 	it('should properly map the body', () => {
-		expect(this.goodResult).to.have.property('data')
+		expect(goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([1])
-			.which.has.property([1])
+			.that.has.property('1')
+			.which.has.property('1')
 			.that.equals(25);
 	});
 
 	it('should figure out missing options', () => {
-		expect(this.goodResultNoOpts).to.have.property('data')
+		expect(goodResultNoOpts).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([1])
-			.which.has.property([1])
+			.that.has.property('1')
+			.which.has.property('1')
 			.that.equals(25);
 	});
 
 	it('should properly map array properties', () => {
-		expect(this.goodResult).to.have.property('data')
+		expect(goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([2])
-			.which.has.property([3])
+			.that.has.property('2')
+			.which.has.property('3')
 			.that.equals('swimming, Javascripting');
 	});
 
-	it('should clean input out of invalid charcters', () => {
-		expect(this.goodResult).to.have.property('data')
+	it('should clean input out of invalid characters', () => {
+		expect(goodResult).to.have.property('data')
 			.which.has.property('values')
 			.that.is.an.instanceOf(Array)
 			.with.lengthOf(3)
-			.that.has.property([2])
-			.which.has.property([0])
+			.that.has.property('2')
+			.which.has.property('0')
 			.that.has.lengthOf(4);
 	});
 
 	it('should not process invalid input', () => {
-		return this.myModule.push(this.badInputObjects, options)
+		return myModule.push(badInputObjects, options)
 			.catch((error) => {
 				expect(error).to.be.instanceof(Error)
 					.and.to.match(/must be an object/);
