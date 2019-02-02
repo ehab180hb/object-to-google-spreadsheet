@@ -3,3 +3,4 @@ creds.json
 demoAndTest.js
 coverage
 .nyc_output
+yarn-error.log

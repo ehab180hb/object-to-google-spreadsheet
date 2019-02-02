@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main module Auth data are passed correctly 1`] = `
+Object {
+  "configurable": true,
+  "enumerable": true,
+  "value": Object {
+    "creds": Object {},
+    "docKey": "1gsLxL0ln8m2yJQgnLNpzvP8kGDLU1ATszwZlM",
+  },
+  "writable": true,
+}
+`;
+
+exports[`main module Throws when given invalid input 1`] = `"Docs input must be an array"`;
+
+exports[`main module When optional data are given 1`] = `
+Object {
+  "sheetName": "My Awesome Report",
+  "values": Array [
+    Array [
+      "info",
+      "Age",
+      "Address",
+      "Hobbies",
+    ],
+    Array [
+      "John",
+      25,
+      "16 main st.",
+      false,
+    ],
+    Array [
+      "Jane",
+      26,
+      false,
+      "swimming, Javascripting",
+    ],
+  ],
+}
+`;
+
+exports[`main module When optional data are not given 1`] = `
+Object {
+  "sheetName": "New Sheet",
+  "values": Array [
+    Array [
+      " ",
+      "Age",
+      "Address",
+      "Hobbies",
+    ],
+    Array [
+      "John",
+      25,
+      "16 main st.",
+      false,
+    ],
+    Array [
+      "Jane",
+      26,
+      false,
+      "swimming, Javascripting",
+    ],
+  ],
+}
+`;
+
+exports[`main module When sorting and removing base 1`] = `
+Object {
+  "sheetName": "New Sheet",
+  "values": Array [
+    Array [
+      "Address",
+      "Age",
+      "Hobbies",
+    ],
+    Array [
+      "16 main st.",
+      25,
+      false,
+    ],
+    Array [
+      false,
+      26,
+      "swimming, Javascripting",
+    ],
+  ],
+}
+`;
