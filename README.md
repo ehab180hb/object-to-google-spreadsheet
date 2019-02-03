@@ -1,4 +1,4 @@
-Quickly publish a set of unstructured JSON objects into a Google spreadsheet that you specify.
+Transform and publish your JSON objects into a Google spreadsheet.
 
 # Installation
 
@@ -9,55 +9,47 @@ Quickly publish a set of unstructured JSON objects into a Google spreadsheet tha
 
 ## Example usage
 
-```
+```typescript
 const O2GS = require('object-to-google-spreadsheet');
+// or use 'import' to get it with types in Typescript
 
-// require your Google json credentials file
+// load your Google service account
 const creds = require('./creds');
 
-const myReport = new O2GS(creds, '<Your docKey here>');
+// get your doc key from the spreadsheet's URL
+const docKey = 'Y7usmqsic4djsaxXWqaaS';
 
-const options = {
-    sheetName: 'My Awesome Report',
-    rowName: 'person', // (optional) the key name of the base of your rows
-    properties: 'properties', // (optional) the field containing your base's properties
-    a1Field: 'details', // (optional) the value of the A1 field
-    sort: true, // (optional) sort fields row alphabetically
-    removeBase: false // (optional) if true, the base column won't be rendered in the sheet
-};
+const myReport = new O2GS(creds, docKey);
 
-// input must be an array of your objects
+// The array of objects which will build the spreadsheet
 const docs = [
-    {
-        person : "John",
-        properties : {
-            Age: 25,
-            Address : "16 main st."
-        }
-
-    },
-    {
-        person : "Jane",
-        properties : {
-            Age : 24,
-            Hobbies : ["swimming", "Javascripting"]
-        }
-
-    }
+  {
+    person : "John",
+    properties : { Age: 25,  Address : "16 main st." }
+  },
+  {
+    person : "Jane",
+    properties : { Age : 24, Hobbies : ["swimming", "Javascripting"]}
+  }
 ];
 
-// push your object to the sheet
-myReport.push(docs, options)
-.then(result => console.log(result))
-.catch(err => console.log(err));
+// optional
+const options = {
+    sheetName: 'My Awesome Report',
+    rowName: 'person',
+    properties: 'properties',
+    a1Field: 'details', 
+    sort: true, 
+    removeBase: false 
+};
 
-// using async/await
 (async ()=> {
-    try {
-        await myReport.push(docs, options);
-    } catch(err) {
-        console.log(err);
-    }
+  try {
+    // populate the sheet
+    await myReport.push(docs, options);
+  } catch(err) {
+    console.log(err);
+  }
 })();
 ```
 
