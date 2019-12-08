@@ -509,11 +509,11 @@ array-equal@^1.0.0:
   integrity sha1-jCpe8kcv2ep0KwTHenUJO6J1fJM=
 
 array-to-google-sheets@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/array-to-google-sheets/-/array-to-google-sheets-1.0.1.tgz#95a0134704cc4d5da00bb05a8f0185a745a73ee4"
-  integrity sha512-XUBky2VNTbjAam1W6QYA6/+v2ynOaMRz2iAr6LyJxxMLlYKU/2UrZ655yFdxIp4xKHCjwBPJxCy0m4FpzXhtlg==
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/array-to-google-sheets/-/array-to-google-sheets-1.1.6.tgz#f7880f6504c4d42fb97261db79579651901a746e"
+  integrity sha512-juTpQRi8Q3tp0IX0+edjaZXHDsq1YDgOOGjc2O2lAa7yt5yOBlzsyPUDizVi95D0nH6am6X1Lw1UdeAkCCp0FA==
   dependencies:
-    google-spreadsheet "^2.0.4"
+    google-spreadsheet "^2.0.8"
 
 array-unique@^0.2.1:
   version "0.2.1"
@@ -1665,7 +1665,7 @@ google-p12-pem@^0.1.0:
   dependencies:
     node-forge "^0.7.1"
 
-google-spreadsheet@^2.0.4:
+google-spreadsheet@^2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/google-spreadsheet/-/google-spreadsheet-2.0.8.tgz#4c52c13bec439010010d9123ebc3cd06f43a51c0"
   integrity sha512-mOcYls5JlJN/nVcqVLrdvQ9XV6Z2OnAPuh8t8FhirAYYVCXv3QuLple8kknQ6gO+8i88T+rxrpJZ8PLjx6BvuQ==
