@@ -33,7 +33,7 @@
     },
     "devDependencies": {
         "@types/jest": "^24.0.25",
-        "@types/node": "^10.12.21",
+        "@types/node": "^13.1.2",
         "jest": "^24.0.0",
         "nyc": "^15.0.0",
         "pre-commit": "^1.2.2",
