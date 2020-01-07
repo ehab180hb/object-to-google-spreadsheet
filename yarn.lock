@@ -640,9 +640,9 @@ array-equal@^1.0.0:
   integrity sha1-jCpe8kcv2ep0KwTHenUJO6J1fJM=
 
 array-to-google-sheets@^1.0.1:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/array-to-google-sheets/-/array-to-google-sheets-1.1.7.tgz#d86eaa57e85f3288f42697ad786e92862d4a160e"
-  integrity sha512-X2RPRryMoZcV0ZBHJd8Yf5novmPre29f59JqmuTTmSfhHL+gYU5O2S/mxsajAkiLVWETR+YsT1Er31nVb+HAiw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/array-to-google-sheets/-/array-to-google-sheets-1.2.0.tgz#76955e952a7c30adedd58b84e6cb1e9c2cebf3dd"
+  integrity sha512-e6rnGEj3Xb4OcoYSiulq3lMitohkklIi84OiLzjlBnqnV4A2TI06pZpaIYd5gPqspSgXzki+YIxM2Gif4eZfLA==
   dependencies:
     google-spreadsheet "^2.0.8"
 
