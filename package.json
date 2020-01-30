@@ -32,7 +32,7 @@
         "array-to-google-sheets": "^1.0.1"
     },
     "devDependencies": {
-        "@types/jest": "^24.0.25",
+        "@types/jest": "^25.1.1",
         "@types/node": "^13.1.6",
         "jest": "^24.0.0",
         "nyc": "^15.0.0",
