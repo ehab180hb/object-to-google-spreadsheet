@@ -39,7 +39,7 @@
         "pre-commit": "^1.2.2",
         "prettier": "^1.16.3",
         "ts-jest": "^25.3.1",
-        "tslint": "^5.12.1",
+        "tslint": "^6.1.2",
         "tslint-config-prettier": "^1.17.0",
         "tslint-plugin-prettier": "^2.0.1",
         "typescript": "^3.3.1"
